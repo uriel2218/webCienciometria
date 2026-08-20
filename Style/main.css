@@ -79,8 +79,19 @@ nav a.active, nav a:hover {
 }
 
 .hero {
-  background: linear-gradient(135deg, rgba(11, 61, 145, .10), rgba(245, 158, 11, .10));
+  /* Usamos ../ para salir de la carpeta Style y entrar a img */
+  background: linear-gradient(rgba(11, 23, 32, 0.75), rgba(11, 23, 32, 0.75)), url('../img/fondoTitle.jpeg');
+  background-size: cover; 
+  background-position: center; 
   border-bottom: 1px solid var(--border);
+}
+
+.hero h1 { 
+  color: #ffffff; 
+}
+
+.hero p.muted { 
+  color: #e2e8f0; 
 }
 
 .hero .container {
@@ -177,4 +188,77 @@ code.kbd {
   padding: .15rem .35rem;
   border-radius: .35rem;
   font-size: .72rem;
+}
+
+.main-header {
+  background-color: #000000;
+  color: #ffffff;
+  padding: 10px 0;
+  width: 100%;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.logos {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo-unam {
+  height: 60px; /* Ajusta según sea necesario */
+  width: auto;
+}
+
+.logo-c3 {
+  height: 45px; /* Ajusta según sea necesario */
+  width: auto;
+}
+
+.main-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.main-nav li a {
+  color: #ffffff;
+  text-decoration: none;
+  font-family: Arial, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.main-nav li a:hover {
+  text-decoration: none;
+  opacity: 0.8;
+}
+
+.arrow {
+  font-size: 0.7rem;
+}
+
+.main-nav li a.active {
+  border-bottom: 2px solid #ffffff;
+  padding-bottom: 2px;
+}
+
+.logo-c4 {
+  height: 45px; 
+  width: auto;
+  border-radius: 4px; /* Opcional: si el logo tiene fondo blanco y quieres suavizar los bordes */
 }
