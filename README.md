@@ -36,6 +36,7 @@ Al ser un sitio web estático puro, no requiere de un servidor complejo para pre
 ## 🗺️ Roadmap y Siguientes Pasos
 El proyecto se encuentra en una fase de evaluación técnica para refactorizar su arquitectura. Los objetivos a corto/mediano plazo incluyen:
 - [x] Desacoplamiento de CSS a una hoja de estilos externa.
+- [x] Rediseño visual del sitio.
 - [ ] Evaluación técnica para migrar hacia un framework dinámico (ej. **Laravel / PHP**) o un Generador de Sitios Estáticos (SSG).
 - [ ] Implementación de un panel de administración o sistema de gestión para automatizar la captura de la producción científica.
 - [ ] Optimización de metadatos (Open Graph) orientados a SEO académico.
