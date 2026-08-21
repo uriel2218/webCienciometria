@@ -370,3 +370,61 @@ code.kbd {
 .carousel-control.next {
   right: 20px; /* Separación del borde derecho */
 }
+
+/* --- TARJETAS GIRATORIAS (LÍNEAS DE INVESTIGACIÓN) --- */
+.flip-card {
+  background-color: transparent;
+  width: 100%;
+  height: 250px; /* Altura fija para todas las tarjetas */
+  perspective: 1000px; /* Esta es la clave para crear el efecto de profundidad 3D */
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1); /* Giro suave y dinámico */
+  transform-style: preserve-3d;
+  border-radius: 14px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* El evento: girar 180 grados al poner el cursor encima */
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Necesario para que funcione bien en Safari */
+  backface-visibility: hidden;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+/* Cara frontal (Imagen) */
+.flip-card-front {
+  background-color: #e2e8f0; /* Fondo gris por si la imagen tarda en cargar */
+  background-size: cover;
+  background-position: center;
+}
+
+/* Cara trasera (Texto) */
+.flip-card-back {
+  background-color: var(--primary); /* Usa tu color verde institucional */
+  color: white;
+  transform: rotateY(180deg); /* Volteada por defecto para que inicie de espaldas */
+  display: flex;
+  align-items: center; /* Centra el texto verticalmente */
+  justify-content: center;
+  padding: 1.5rem;
+  font-size: 1.05rem;
+  line-height: 1.4;
+}
+
+.flip-card-back p {
+  margin: 0;
+}
