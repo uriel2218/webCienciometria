@@ -313,7 +313,9 @@ code.kbd {
 }
 
 .slide-bg-2 {
-  background-color: var(--muted); /* Gris */
+  background: url('../img/cartelClase2.jpeg') center center no-repeat;
+  background-size: contain; /* Muestra la imagen completa sin recortar */
+  background-color: #000000; /* Fondo negro para rellenar los lados */
 }
 
 /* --- INDICADORES DEL CARRUSEL --- */
