@@ -13,9 +13,20 @@
     
     <!-- Lado Izquierdo: Logos -->
     <div class="logos">
-      <img src="img/logoUnam.png" alt="Escudo UNAM" class="logo-unam">
-      <img src="img/logoC3.png" alt="Logo Centro de Ciencias de la Complejidad" class="logo-c3">
-      <img src="img/logoC4.jpg" alt="Logo Cienciometria" class="logo-c4">
+      <!-- Enlace a la UNAM (Abre en pestaña nueva) -->
+      <a href="https://www.unam.mx/" target="_blank">
+        <img src="img/logoUnam.png" alt="Escudo UNAM" class="logo-unam">
+      </a>
+
+      <!-- Enlace al C3 (Abre en pestaña nueva) -->
+      <a href="https://www.c3.unam.mx/" target="_blank">
+        <img src="img/logoC3.png" alt="Logo Centro de Ciencias de la Complejidad" class="logo-c3">
+      </a>
+
+      <!-- Enlace al Inicio de tu página (index.html) -->
+      <a href="index.html">
+        <img src="img/logoC4.jpg" alt="Logo Cienciometria" class="logo-c4">
+      </a>
     </div>
     
     <!-- Lado Derecho: Navegación del Proyecto -->
@@ -112,11 +123,23 @@
   </section>
 
   <footer>
-    <div class="container">
-      <div class="grid cols-2">
-        <div><span class="badge">C4</span> Proyecto “Cienciometría, Complejidad y Ciencia de la Ciencia” — C3 · UNAM</div>
-        <div class="muted" style="text-align:right">© C3 · Coordinación de Ciencia de Datos</div>
+    <div class="container" style="display: flex; align-items: center; gap: 3rem; flex-wrap: wrap; color: #ffffff;">
+      
+      <!-- Logo a la izquierda -->
+      <div style="flex-shrink: 0; text-align: center;">
+        <img src="img/footerUNAM.png" alt="Logo UNAM" style="max-width: 280px; height: auto;">
       </div>
+
+      <!-- Texto legal (Alineación justificada) -->
+      <div style="flex: 1; font-size: 0.9rem; text-align: justify;">
+        <p style="margin-bottom: 0.5rem; line-height: 1.5; color: #ffffff;">
+          Hecho en México, Universidad Nacional Autónoma de México (UNAM), todos los derechos reservados 2026. Esta página y sus contenidos pueden ser reproducidos con fines no lucrativos, siempre y cuando no se mutile, se cite la fuente completa y su dirección electrónica. De otra forma, requiere permiso previo por escrito de la institución.
+        </p>
+        <p style="margin-top: 0; color: #ffffff;">
+          Última actualización 24 de agosto de 2026 | <a href="creditos.html" style="font-weight: 600; text-decoration: underline; color: #ffffff;">Créditos</a>
+        </p>
+      </div>
+
     </div>
   </footer>
 </body>
