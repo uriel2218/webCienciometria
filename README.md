@@ -22,7 +22,10 @@ Actualmente, el sitio está construido bajo una arquitectura *Vanilla Web* sin d
 ├── miembros.html        # Directorio de coordinadores, colaboradores y estudiantes
 ├── produccion.html      # Repositorio de artículos, libros y reportes técnicos
 ├── difusion.html        # Presentaciones, entrevistas y divulgación
-└── style/
+├── img/                 # Imagenes de consumo
+├── javaScript/
+    └── carousel.js.     # Funcionalidad del carousel
+└── Style/
     └── main.css         # Hoja de estilos global desacoplada
 ```
 
