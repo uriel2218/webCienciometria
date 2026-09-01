@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panel de Administración — C4</title>
+  <link rel="stylesheet" href="Style/admin.css">
+  <link rel="icon" type="image/png" href="../img/faviconC4.png">
+</head>
+<body class="admin-body">
+
+  <!-- Sidebar Lateral -->
+  <aside class="admin-sidebar">
+    <div class="sidebar-header">
+      <img src="../img/logoC4.jpg" alt="C4 Logo">
+      <div>
+        <h2>Panel C4</h2>
+        <span>Administración</span>
+      </div>
+    </div>
+
+    <ul class="sidebar-menu">
+      <li><a href="index.html" class="active">📊 <span>Inicio (Dashboard)</span></a></li>
+      <li><a href="miembros.html">👥 <span>Miembros</span></a></li>
+      <li><a href="produccion.html">📚 <span>Producción Científica</span></a></li>
+      <li><a href="difusion.html">📢 <span>Difusión y Eventos</span></a></li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <a href="../index.html">🌐 <span>Volver al sitio público</span></a>
+    </div>
+  </aside>
+
+  <!-- Contenido Principal -->
+  <main class="admin-main">
+    <header class="admin-header">
+      <h1>Resumen General</h1>
+      <div class="user-profile">
+        <div class="avatar">C4</div>
+        <div>
+          <strong>Coordinación C4</strong>
+          <div style="font-size: 0.8rem; color: var(--muted);">Administrador</div>
+        </div>
+      </div>
+    </header>
+
+    <section class="admin-content">
+      <!-- Tarjetas de Métricas -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-icon">👥</div>
+          <div class="metric-info">
+            <h3>14</h3>
+            <p>Miembros registrados</p>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon">📚</div>
+          <div class="metric-info">
+            <h3>28</h3>
+            <p>Publicaciones activas</p>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon">📢</div>
+          <div class="metric-info">
+            <h3>6</h3>
+            <p>Eventos de difusión</p>
+          </div>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-icon">⚡</div>
+          <div class="metric-info">
+            <h3>3</h3>
+            <p>Borradores pendientes</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel de Accesos Rápidos -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Accesos Rápidos de Gestión</h2>
+        </div>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <a href="miembros.html" class="btn btn-primary">+ Agregar Miembro</a>
+          <a href="produccion.html" class="btn btn-primary">+ Nueva Publicación</a>
+          <a href="difusion.html" class="btn btn-primary">+ Registrar Evento</a>
+          <a href="../index.html" target="_blank" class="btn btn-outline">Previsualizar Sitio</a>
+        </div>
+      </div>
+
+      <!-- Panel de Última Actividad -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Últimos Registros del Sistema</h2>
+        </div>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Título / Nombre</th>
+                <th>Categoría</th>
+                <th>Fecha de Registro</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Dra. María Elena Ramos</strong></td>
+                <td>Miembro · Coordinación</td>
+                <td>01 Sep 2026</td>
+                <td><span class="badge badge-success">Activo</span></td>
+              </tr>
+              <tr>
+                <td>Redes complejas aplicadas a la cienciometría en México</td>
+                <td>Producción · Artículo</td>
+                <td>28 Ago 2026</td>
+                <td><span class="badge badge-success">Publicado</span></td>
+              </tr>
+              <tr>
+                <td>Seminario de Ciencias de la Complejidad 2026</td>
+                <td>Difusión · Conferencia</td>
+                <td>15 Ago 2026</td>
+                <td><span class="badge badge-info">Programado</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="javaScript/admin.js"></script>
+</body>
+</html>
+

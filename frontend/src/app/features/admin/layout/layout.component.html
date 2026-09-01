@@ -1,0 +1,43 @@
+<div class="admin-body">
+  <!-- Sidebar Lateral -->
+  <aside class="admin-sidebar">
+    <div class="sidebar-header">
+      <img src="favicon.ico" alt="C4 Logo">
+      <div>
+        <h2>Panel C4</h2>
+        <span>Administración</span>
+      </div>
+    </div>
+
+    <ul class="sidebar-menu">
+      <li><a routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">📊 <span>Inicio (Dashboard)</span></a></li>
+      <li><a routerLink="/admin/miembros" routerLinkActive="active">👥 <span>Miembros</span></a></li>
+      <li><a routerLink="/admin/produccion" routerLinkActive="active">📚 <span>Producción Científica</span></a></li>
+      <li><a routerLink="/admin/difusion" routerLinkActive="active">📢 <span>Difusión y Eventos</span></a></li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <a href="/" target="_blank">🌐 <span>Volver al sitio público</span></a>
+      <a href="#" (click)="logout($event)" style="margin-top: 15px; color: #ef4444; font-weight: bold;">🚪 <span>Cerrar Sesión</span></a>
+    </div>
+  </aside>
+
+  <!-- Contenido Principal -->
+  <main class="admin-main">
+    <header class="admin-header">
+      <h1>Panel de Administración</h1>
+      <div class="user-profile">
+        <div class="avatar">{{ currentUser()?.full_name ? currentUser()!.full_name.charAt(0).toUpperCase() : 'C4' }}</div>
+        <div>
+          <strong>{{ currentUser()?.full_name || currentUser()?.email || 'Coordinación' }}</strong>
+          <div style="font-size: 0.8rem; color: var(--muted);">{{ currentUser()?.role || 'Administrador' }}</div>
+        </div>
+      </div>
+    </header>
+
+    <section class="admin-content">
+      <!-- Aquí se inyectan dinámicamente las vistas hijas (el Dashboard) -->
+      <router-outlet></router-outlet>
+    </section>
+  </main>
+</div>

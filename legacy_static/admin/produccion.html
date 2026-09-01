@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Producción Científica — Admin C4</title>
+  <link rel="stylesheet" href="Style/admin.css">
+  <link rel="icon" type="image/png" href="../img/faviconC4.png">
+</head>
+<body class="admin-body">
+
+  <aside class="admin-sidebar">
+    <div class="sidebar-header">
+      <img src="../img/logoC4.jpg" alt="C4 Logo">
+      <div>
+        <h2>Panel C4</h2>
+        <span>Administración</span>
+      </div>
+    </div>
+
+    <ul class="sidebar-menu">
+      <li><a href="index.html">📊 <span>Inicio (Dashboard)</span></a></li>
+      <li><a href="miembros.html">👥 <span>Miembros</span></a></li>
+      <li><a href="produccion.html" class="active">📚 <span>Producción Científica</span></a></li>
+      <li><a href="difusion.html">📢 <span>Difusión y Eventos</span></a></li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <a href="../index.html">🌐 <span>Volver al sitio público</span></a>
+    </div>
+  </aside>
+
+  <main class="admin-main">
+    <header class="admin-header">
+      <h1>Gestión de Producción Científica</h1>
+      <button class="btn btn-primary" data-modal-target="#modalNuevaPublicacion">+ Nueva Publicación</button>
+    </header>
+
+    <section class="admin-content">
+      <div class="panel">
+        <div class="panel-header">
+          <h2>Publicaciones y Reportes</h2>
+          <input type="text" class="form-control" style="width: 250px;" placeholder="Buscar por título o autor...">
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Título</th>
+                <th>Tipo</th>
+                <th>Autores</th>
+                <th>Año</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Análisis cienciométrico de la investigación en complejidad</strong></td>
+                <td><span class="badge badge-info">Artículo Journal</span></td>
+                <td>Fernández, C., Ramos, M. E.</td>
+                <td>2025</td>
+                <td>
+                  <button class="btn btn-outline btn-sm">Editar</button>
+                  <button class="btn btn-danger btn-sm">Eliminar</button>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Mapeo de redes de colaboración en la UNAM</strong></td>
+                <td><span class="badge badge-warning">Reporte Técnico</span></td>
+                <td>Gómez, A., Fernández, C.</td>
+                <td>2024</td>
+                <td>
+                  <button class="btn btn-outline btn-sm">Editar</button>
+                  <button class="btn btn-danger btn-sm">Eliminar</button>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Introducción a la Ciencia de la Ciencia con IA</strong></td>
+                <td><span class="badge badge-success">Libro / Capítulo</span></td>
+                <td>Coordinación C4</td>
+                <td>2024</td>
+                <td>
+                  <button class="btn btn-outline btn-sm">Editar</button>
+                  <button class="btn btn-danger btn-sm">Eliminar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal para Agregar Publicación -->
+  <div class="modal" id="modalNuevaPublicacion">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Registrar Nueva Publicación</h3>
+        <button class="close-modal">&times;</button>
+      </div>
+      <form class="admin-form">
+        <div class="form-group">
+          <label for="titulo">Título de la Publicación</label>
+          <input type="text" id="titulo" class="form-control" placeholder="Título completo..." required>
+        </div>
+        <div class="form-group">
+          <label for="tipo">Tipo de Publicación</label>
+          <select id="tipo" class="form-control" required>
+            <option value="">Seleccionar tipo...</option>
+            <option value="Artículo">Artículo en Revista (Journal)</option>
+            <option value="Reporte">Reporte Técnico</option>
+            <option value="Libro">Libro o Capítulo de Libro</option>
+            <option value="Conferencia">Memoria de Congreso</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="autores">Autores</label>
+          <input type="text" id="autores" class="form-control" placeholder="Ej. Fernández C., Ramos M. E.">
+        </div>
+        <div class="form-group">
+          <label for="doi">DOI o Enlace de Consulta</label>
+          <input type="url" id="doi" class="form-control" placeholder="https://doi.org/10....">
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1.5rem;">
+          <button type="button" class="btn btn-outline" data-modal-close>Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar Publicación</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="javaScript/admin.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,86 @@
+<!-- Tarjetas de Métricas -->
+<div class="metrics-grid">
+  <div class="metric-card">
+    <div class="metric-icon">👥</div>
+    <div class="metric-info">
+      <h3>14</h3>
+      <p>Miembros registrados</p>
+    </div>
+  </div>
+
+  <div class="metric-card">
+    <div class="metric-icon">📚</div>
+    <div class="metric-info">
+      <h3>28</h3>
+      <p>Publicaciones activas</p>
+    </div>
+  </div>
+
+  <div class="metric-card">
+    <div class="metric-icon">📢</div>
+    <div class="metric-info">
+      <h3>6</h3>
+      <p>Eventos de difusión</p>
+    </div>
+  </div>
+
+  <div class="metric-card">
+    <div class="metric-icon">⚡</div>
+    <div class="metric-info">
+      <h3>3</h3>
+      <p>Borradores pendientes</p>
+    </div>
+  </div>
+</div>
+
+<!-- Panel de Accesos Rápidos -->
+<div class="panel">
+  <div class="panel-header">
+    <h2>Accesos Rápidos de Gestión</h2>
+  </div>
+  <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+    <a routerLink="/admin/miembros" class="btn btn-primary">+ Agregar Miembro</a>
+    <a routerLink="/admin/produccion" class="btn btn-primary">+ Nueva Publicación</a>
+    <a routerLink="/admin/difusion" class="btn btn-primary">+ Registrar Evento</a>
+    <a href="/" target="_blank" class="btn btn-outline">Previsualizar Sitio Público</a>
+  </div>
+</div>
+
+<!-- Panel de Última Actividad -->
+<div class="panel">
+  <div class="panel-header">
+    <h2>Últimos Registros del Sistema</h2>
+  </div>
+  <div class="table-responsive">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Título / Nombre</th>
+          <th>Categoría</th>
+          <th>Fecha de Registro</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Dra. María Elena Ramos</strong></td>
+          <td>Miembro · Coordinación</td>
+          <td>01 Sep 2026</td>
+          <td><span class="badge badge-success">Activo</span></td>
+        </tr>
+        <tr>
+          <td>Redes complejas aplicadas a la cienciometría en México</td>
+          <td>Producción · Artículo</td>
+          <td>28 Ago 2026</td>
+          <td><span class="badge badge-success">Publicado</span></td>
+        </tr>
+        <tr>
+          <td>Seminario de Ciencias de la Complejidad 2026</td>
+          <td>Difusión · Conferencia</td>
+          <td>15 Ago 2026</td>
+          <td><span class="badge badge-info">Programado</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

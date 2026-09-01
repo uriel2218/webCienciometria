@@ -1,0 +1,78 @@
+<div style="margin-bottom: 2rem;">
+  <h2 style="margin: 0; font-size: 1.5rem; color: #0b1720;">Gestión de Miembros</h2>
+  <p style="color: #52606b; margin-top: 0.5rem;">Agrega, edita o elimina a los colaboradores del proyecto C4.</p>
+</div>
+
+<div class="metrics-grid" style="grid-template-columns: 1fr 2fr;">
+  
+  <!-- Columna 1: Formulario -->
+  <div class="panel" style="margin-bottom: 0;">
+    <div class="panel-header">
+      <h3 style="margin: 0;">Nuevo Miembro</h3>
+    </div>
+    <form (ngSubmit)="onSubmit()">
+      
+      <div class="form-group">
+        <label>Nombre Completo *</label>
+        <input type="text" class="form-control" name="full_name" [(ngModel)]="newMember.full_name" required placeholder="Ej. Dra. Jane Doe">
+      </div>
+      
+      <div class="form-group">
+        <label>Rol / Cargo</label>
+        <input type="text" class="form-control" name="role" [(ngModel)]="newMember.role" placeholder="Ej. Investigadora Titular">
+      </div>
+      
+      <div class="form-group">
+        <label>Institución</label>
+        <input type="text" class="form-control" name="institution" [(ngModel)]="newMember.institution">
+      </div>
+      
+      <div class="form-group">
+        <label>Biografía corta</label>
+        <textarea class="form-control" name="bio" [(ngModel)]="newMember.bio" rows="4" placeholder="Áreas de especialidad..."></textarea>
+      </div>
+      
+      <button type="submit" class="btn btn-primary btn-block" [disabled]="isSaving || !newMember.full_name">
+        {{ isSaving ? 'Guardando...' : '+ Guardar Miembro' }}
+      </button>
+      
+    </form>
+  </div>
+  
+  <!-- Columna 2: Tabla de Datos -->
+  <div class="panel" style="margin-bottom: 0;">
+    <div class="panel-header">
+      <h3 style="margin: 0;">Directorio Actual</h3>
+    </div>
+    
+    <div *ngIf="isLoading" style="padding: 2rem; text-align: center;">Cargando directorio...</div>
+    
+    <div class="table-responsive" *ngIf="!isLoading">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Nombre y Rol</th>
+            <th>Institución</th>
+            <th style="text-align: right;">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="members.length === 0">
+            <td colspan="3" style="text-align: center; color: #52606b; padding: 2rem;">No hay miembros registrados.</td>
+          </tr>
+          <tr *ngFor="let m of members">
+            <td>
+              <strong>{{ m.full_name }}</strong><br>
+              <span style="font-size: 0.8rem; color: #52606b;">{{ m.role || 'Sin especificar' }}</span>
+            </td>
+            <td>{{ m.institution }}</td>
+            <td style="text-align: right;">
+              <button class="btn btn-danger btn-sm" (click)="deleteMember(m.id)">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

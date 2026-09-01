@@ -1,0 +1,449 @@
+﻿/* style/main.css */
+
+:root {
+  --bg: #f6f9f7;
+  --text: #0b1720;
+  --muted: #52606b;
+  --primary: #0f766e;
+  --accent: #84cc16;
+  --card: #ffffff;
+  --border: #dbe5df;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  line-height: 1.65;
+  color: var(--text);
+  background: var(--bg);
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  z-index: 10;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: .75rem 0;
+}
+
+.brand {
+  font-weight: 800;
+  letter-spacing: .2px;
+}
+
+.brand small {
+  display: block;
+  font-weight: 600;
+  color: var(--muted);
+  font-size: .8rem;
+  margin-top: -2px;
+}
+
+nav a {
+  padding: .4rem .7rem;
+  border-radius: .6rem;
+}
+
+nav a.active, nav a:hover {
+  background: rgba(11, 61, 145, .08);
+}
+
+.hero {
+  /* Usamos ../ para salir de la carpeta Style y entrar a img */
+  background: linear-gradient(rgba(11, 23, 32, 0.75), rgba(11, 23, 32, 0.75)), url('/img/fondoTitle.jpeg');
+  background-size: cover; 
+  background-position: center; 
+  border-bottom: 1px solid var(--border);
+}
+
+.hero h1 { 
+  color: #ffffff; 
+}
+
+.hero p.muted { 
+  color: #e2e8f0; 
+}
+
+.hero .container {
+  padding: 2.2rem 1rem;
+}
+
+h1 { font-size: 1.9rem; margin: 0 0 .25rem; }
+h2 { font-size: 1.4rem; margin: 2rem 0 .5rem; }
+p { margin: .6rem 0; }
+
+.grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media(min-width: 900px) {
+  .grid.cols-2 { grid-template-columns: 1fr 1fr; }
+  .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1rem;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, .02);
+}
+
+.muted { color: var(--muted); }
+
+.badge {
+  display: inline-block;
+  background: rgba(11, 61, 145, .08);
+  color: var(--primary);
+  padding: .2rem .5rem;
+  border-radius: 999px;
+  font-size: .78rem;
+}
+
+.btn {
+  display: inline-block;
+  border: 1px solid var(--border);
+  background: #fff;
+  border-radius: 10px;
+  padding: .55rem .8rem;
+  font-weight: 600;
+}
+
+.btn.primary {
+  background: var(--primary);
+  color: #fff;
+  border-color: transparent;
+}
+
+.section { padding: 2rem 0; }
+
+footer {
+  padding: 2rem 0;
+  margin-top: 2rem;
+  background-color: #1a365d; /* Azul marino institucional extraÃ­do de tu imagen */
+  color: #ffffff; /* Texto blanco por defecto */
+}
+
+.list-tight li { margin: .35rem 0; }
+
+.two-col {
+  columns: 1;
+  column-gap: 2rem;
+}
+
+@media(min-width: 1000px) {
+  .two-col { columns: 2; }
+}
+
+.person {
+  display: flex;
+  gap: .9rem;
+}
+
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c7d2fe, #e0e7ff);
+  display: inline-block;
+}
+
+.person h3 { margin: .1rem 0 .1rem; font-size: 1rem; }
+.person p { margin: 0; font-size: .92rem; }
+
+code.kbd {
+  background: #111827;
+  color: #fff;
+  padding: .15rem .35rem;
+  border-radius: .35rem;
+  font-size: .72rem;
+}
+
+.main-header {
+  background-color: #000000;
+  color: #ffffff;
+  padding: 10px 0;
+  width: 100%;
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.logos {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo-unam {
+  height: 60px; /* Ajusta segÃºn sea necesario */
+  width: auto;
+}
+
+.logo-c3 {
+  height: 45px; /* Ajusta segÃºn sea necesario */
+  width: auto;
+}
+
+.main-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.main-nav li a {
+  color: #ffffff;
+  text-decoration: none;
+  font-family: Arial, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.main-nav li a:hover {
+  text-decoration: none;
+  opacity: 0.8;
+}
+
+.arrow {
+  font-size: 0.7rem;
+}
+
+.main-nav li a.active {
+  border-bottom: 2px solid #ffffff;
+  padding-bottom: 2px;
+}
+
+.logo-c4 {
+  height: 45px; 
+  width: auto;
+  border-radius: 4px; /* Opcional: si el logo tiene fondo blanco y quieres suavizar los bordes */
+}
+
+/* --- BANNER CARRUSEL --- */
+.banner-carousel {
+  position: relative;
+  width: 100%;
+  height: 400px; /* Puedes cambiar esta altura */
+  overflow: hidden;
+  background-color: var(--text);
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0; /* Oculta todas las diapositivas por defecto */
+  transition: opacity 1s ease-in-out; /* Efecto de transiciÃ³n de 1 segundo */
+  display: flex;
+  align-items: center; /* Centra el texto verticalmente */
+}
+
+.slide.active {
+  opacity: 1; /* Muestra solo la diapositiva activa */
+  z-index: 2;
+}
+
+.slide-content {
+  position: relative;
+  z-index: 3;
+  max-width: 800px;
+}
+
+.slide-content h2 { 
+  color: #ffffff; 
+  margin-top: 0;
+}
+
+.slide-content p { 
+  color: #e2e8f0; 
+  font-size: 1.1rem; 
+}
+
+/* Colores de fondo temporales (luego los cambiarÃ¡s por imÃ¡genes) */
+.slide-bg-1 {
+  background: url('/img/cartelClase.jpeg') center center no-repeat;
+  background-size: contain; /* Muestra la imagen completa sin recortar */
+  background-color: #000000; /* Fondo negro para rellenar los lados */
+}
+
+.slide-bg-2 {
+  background: url('/img/cartelClase2.jpeg') center center no-repeat;
+  background-size: contain; /* Muestra la imagen completa sin recortar */
+  background-color: #000000; /* Fondo negro para rellenar los lados */
+}
+
+/* --- INDICADORES DEL CARRUSEL --- */
+.carousel-indicators {
+  position: absolute;
+  bottom: 20px; /* Distancia desde abajo */
+  left: 50%;
+  transform: translateX(-50%); /* Centra los indicadores perfectamente */
+  display: flex;
+  gap: 12px; /* SeparaciÃ³n entre cuadros */
+  z-index: 10; /* Asegura que estÃ©n por encima de las imÃ¡genes */
+}
+
+.dot {
+  width: 35px; /* Ancho para que parezcan rectÃ¡ngulos/lÃ­neas */
+  height: 6px; /* Grosor del cuadro */
+  background-color: rgba(255, 255, 255, 0.4); /* Blanco semi-transparente */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dot:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.dot.active {
+  background-color: #ffffff; /* Blanco sÃ³lido cuando es la diapositiva actual */
+}
+
+/* --- FLECHAS DEL CARRUSEL --- */
+.carousel-control {
+  position: absolute;
+  top: 50%; /* Las centra verticalmente */
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.3); /* Fondo negro semi-transparente */
+  color: white;
+  border: none;
+  font-size: 2rem;
+  padding: 15px 20px;
+  cursor: pointer;
+  z-index: 10; /* Asegura que estÃ©n sobre la imagen */
+  transition: background-color 0.3s ease;
+  border-radius: 5px; /* Bordes ligeramente redondeados */
+}
+
+.carousel-control:hover {
+  background-color: rgba(0, 0, 0, 0.8); /* Se oscurece al pasar el mouse */
+}
+
+.carousel-control.prev {
+  left: 20px; /* SeparaciÃ³n del borde izquierdo */
+}
+
+.carousel-control.next {
+  right: 20px; /* SeparaciÃ³n del borde derecho */
+}
+
+/* --- TARJETAS GIRATORIAS (LÃNEAS DE INVESTIGACIÃ“N) --- */
+.flip-card {
+  background-color: transparent;
+  width: 100%;
+  height: 250px; /* Altura fija para todas las tarjetas */
+  perspective: 1000px; /* Esta es la clave para crear el efecto de profundidad 3D */
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1); /* Giro suave y dinÃ¡mico */
+  transform-style: preserve-3d;
+  border-radius: 14px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* El evento: girar 180 grados al poner el cursor encima */
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  top: 0;  /* <-- Nueva lÃ­nea para anclar arriba */
+  left: 0; /* <-- Nueva lÃ­nea para anclar a la izquierda */
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Necesario para que funcione bien en Safari */
+  backface-visibility: hidden;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+/* Cara frontal (Imagen) */
+.flip-card-front {
+  background-color: #e2e8f0; /* Fondo gris por si la imagen tarda en cargar */
+  background-size: cover;
+  background-position: center;
+}
+
+/* Cara trasera (Texto) */
+.flip-card-back {
+  background-color: var(--primary); /* Usa tu color verde institucional */
+  color: white;
+  transform: rotateY(180deg); /* Volteada por defecto para que inicie de espaldas */
+  display: flex;
+  align-items: center; /* Centra el texto verticalmente */
+  justify-content: center;
+  padding: 1.5rem;
+  font-size: 1.05rem;
+  line-height: 1.4;
+}
+
+.flip-card-back p {
+  margin: 0;
+}
+
+/* --- BARRA DE NOMBRE PARA TARJETAS DE MIEMBROS --- */
+.name-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.95); /* Blanco ligeramente transparente */
+  color: var(--text);
+  padding: 12px 15px;
+  font-weight: 600;
+  text-align: left;
+  border-top: 1px solid var(--border);
+  font-size: 1.05rem;
+}

@@ -1,0 +1,42 @@
+<section class="hero" style="background: linear-gradient(rgba(11, 23, 32, 0.8), rgba(11, 23, 32, 0.8));">
+  <div class="container">
+    <h1>Directorio de Miembros</h1>
+    <p class="muted">Conoce a los investigadores, estudiantes y colaboradores que hacen posible el C4.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    
+    <div *ngIf="isLoading" style="text-align: center; padding: 3rem;">
+      <p>Cargando información desde la base de datos...</p>
+    </div>
+
+    <div *ngIf="error" class="card" style="border-color: #ef4444; color: #ef4444; text-align: center;">
+      {{ error }}
+    </div>
+
+    <div *ngIf="!isLoading && members.length === 0" style="text-align: center; padding: 3rem;">
+      <p>No hay miembros registrados aún.</p>
+    </div>
+
+    <div *ngIf="!isLoading && members.length > 0" class="grid cols-3" style="margin-top: 2rem;">
+      
+      <!-- Se generan las tarjetas dinámicamente con los datos de MySQL -->
+      <div class="card" *ngFor="let member of members">
+        <div class="person">
+          <div class="avatar" style="display:flex; align-items:center; justify-content:center; color: #0b3d91; font-weight:bold;">
+            {{ member.full_name.charAt(0) }}
+          </div>
+          <div>
+            <h3>{{ member.full_name }}</h3>
+            <span class="badge">{{ member.role || 'Miembro' }}</span>
+            <p class="muted" style="margin-top: 0.5rem; font-size: 0.85rem;">{{ member.institution }}</p>
+            <p style="font-size: 0.85rem;" *ngIf="member.bio">{{ member.bio }}</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

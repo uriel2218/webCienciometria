@@ -1,0 +1,42 @@
+<div class="public-body">
+  <header class="main-header">
+    <div class="header-container">
+      
+      <!-- Lado Izquierdo: Logos -->
+      <div class="logos">
+        <a href="https://www.unam.mx/" target="_blank">
+          <img src="favicon.ico" alt="Escudo UNAM" class="logo-unam" style="height: 40px">
+        </a>
+        <a href="https://www.c3.unam.mx/" target="_blank">
+          <img src="favicon.ico" alt="Logo C3" class="logo-c3" style="height: 40px">
+        </a>
+        <a routerLink="/">
+          <img src="favicon.ico" alt="Logo C4" class="logo-c4" style="height: 40px">
+        </a>
+      </div>
+      
+      <!-- Lado Derecho: Navegación del Proyecto -->
+      <nav class="main-nav">
+        <ul>
+          <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Información General</a></li>
+          <li><a routerLink="/miembros" routerLinkActive="active">Miembros</a></li>
+          <li><a routerLink="/produccion" routerLinkActive="active">Producción Científica</a></li>
+          <li><a routerLink="/difusion" routerLinkActive="active">Difusión y Divulgación</a></li>
+          <li><a routerLink="/login" class="btn primary" style="padding: 5px 10px; font-size:0.8rem;">Entrar al Panel</a></li>
+        </ul>
+      </nav>
+      
+    </div>
+  </header>
+
+  <!-- Contenido Dinámico -->
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer>
+    <div class="container text-center">
+      <p>© 2026 Centro de Ciencias de la Complejidad (C3), UNAM. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+</div>
