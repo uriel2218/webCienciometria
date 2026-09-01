@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api.v1 import auth, members, events
+from app.api.v1 import auth, members, events, publications
 from app.db.session import engine, Base
 
 # Importar todos los modelos para que Base.metadata.create_all los detecte
@@ -33,6 +33,7 @@ app.add_middleware(
 app.include_router(auth.router, prefix="/api/v1/auth", tags=["Auth"])
 app.include_router(members.router, prefix="/api/v1/members", tags=["Miembros"])
 app.include_router(events.router, prefix="/api/v1/events", tags=["Eventos"])
+app.include_router(publications.router, prefix="/api/v1/publications", tags=["Producción"])
 
 @app.get("/api/v1/health")
 def health_check():

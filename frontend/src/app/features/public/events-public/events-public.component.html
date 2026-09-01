@@ -1,0 +1,38 @@
+<section class="hero-section" style="background: linear-gradient(rgba(11, 23, 32, 0.75), rgba(11, 23, 32, 0.75)), url('/img/cartelClase2.jpeg') center center no-repeat; background-size: cover;">
+  <div class="hero-content">
+    <h1>Difusión y Eventos</h1>
+    <p>Congresos, pláticas, divulgación científica e interacciones en medios.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" *ngIf="isLoading" style="text-align: center; padding: 3rem;">
+    <h3>Cargando eventos...</h3>
+  </div>
+  
+  <div class="container grid cols-2" *ngIf="!isLoading">
+    
+    <div class="card" *ngIf="congresos.length > 0">
+      <h2>Presentaciones en Congresos y Eventos</h2>
+      <ol>
+        <li *ngFor="let ev of congresos" style="margin-bottom: 0.5rem;">
+          {{ ev.speakers }}. <em>{{ ev.title }}</em>. 
+          ({{ ev.event_date | date }}).
+          <a *ngIf="ev.video_url" [href]="ev.video_url" target="_blank" rel="noopener">[Ver Material/Video]</a>
+        </li>
+      </ol>
+    </div>
+
+    <div class="card" *ngIf="divulgacion.length > 0">
+      <h2>Acciones de Divulgación</h2>
+      <ol class="two-col">
+        <li *ngFor="let ev of divulgacion" style="margin-bottom: 0.5rem;">
+          {{ ev.speakers }}. <em>{{ ev.title }}</em>. 
+          ({{ ev.event_date | date }}).
+          <a *ngIf="ev.video_url" [href]="ev.video_url" target="_blank" rel="noopener">[Enlace Externo]</a>
+        </li>
+      </ol>
+    </div>
+    
+  </div>
+</section>

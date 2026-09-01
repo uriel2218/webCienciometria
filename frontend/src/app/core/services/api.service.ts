@@ -18,4 +18,8 @@ export class ApiService {
   getEvents(): Observable<any[]> { return this.http.get<any[]>(`${this.baseUrl}/events/`); }
   createEvent(data: any): Observable<any> { return this.http.post<any>(`${this.baseUrl}/events/`, data); }
   deleteEvent(id: number): Observable<any> { return this.http.delete<any>(`${this.baseUrl}/events/${id}`); }
+
+  getPublications(): Observable<any[]> { return this.http.get<any[]>(`${this.baseUrl}/publications/`); }
+  createPublication(data: any): Observable<any> { return this.http.post<any>(`${this.baseUrl}/publications/`, data); }
+  deletePublication(id: number): Observable<any> { return this.http.delete<any>(`${this.baseUrl}/publications/${id}`); }
 }

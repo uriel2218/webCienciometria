@@ -1,0 +1,84 @@
+<div style="margin-bottom: 2rem;">
+  <h2 style="margin: 0; font-size: 1.5rem; color: #0b1720;">Gestión de Producción Científica</h2>
+  <p style="color: #52606b; margin-top: 0.5rem;">Administra artículos, reportes y libros publicados por el C4.</p>
+</div>
+
+<div class="metrics-grid" style="grid-template-columns: 1fr 2fr;">
+  
+  <div class="panel" style="margin-bottom: 0;">
+    <div class="panel-header">
+      <h3 style="margin: 0;">Nueva Publicación</h3>
+    </div>
+    <form (ngSubmit)="onSubmit()">
+      
+      <div class="form-group">
+        <label>Título *</label>
+        <input type="text" class="form-control" name="title" [(ngModel)]="newPub.title" required placeholder="Título completo...">
+      </div>
+      
+      <div class="form-group">
+        <label>Tipo de Publicación *</label>
+        <select class="form-control" name="pub_type" [(ngModel)]="newPub.pub_type" required>
+          <option *ngFor="let type of pubTypes" [value]="type">{{ type }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Autores</label>
+        <input type="text" class="form-control" name="authors" [(ngModel)]="newPub.authors" placeholder="Ej. Gershenson, C., et al.">
+      </div>
+      
+      <div class="form-group">
+        <label>Año</label>
+        <input type="number" class="form-control" name="year" [(ngModel)]="newPub.year">
+      </div>
+
+      <div class="form-group">
+        <label>Enlace / DOI (URL)</label>
+        <input type="url" class="form-control" name="doi_url" [(ngModel)]="newPub.doi_url" placeholder="https://doi.org/...">
+      </div>
+      
+      <button type="submit" class="btn btn-primary btn-block" [disabled]="isSaving || !newPub.title">
+        {{ isSaving ? 'Guardando...' : '+ Registrar Publicación' }}
+      </button>
+      
+    </form>
+  </div>
+  
+  <div class="panel" style="margin-bottom: 0;">
+    <div class="panel-header">
+      <h3 style="margin: 0;">Publicaciones Registradas</h3>
+    </div>
+    
+    <div *ngIf="isLoading" style="padding: 2rem; text-align: center;">Cargando registros...</div>
+    
+    <div class="table-responsive" *ngIf="!isLoading">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Detalles</th>
+            <th>Tipo</th>
+            <th style="text-align: right;">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="publications.length === 0">
+            <td colspan="3" style="text-align: center; color: #52606b; padding: 2rem;">No hay publicaciones registradas.</td>
+          </tr>
+          <tr *ngFor="let p of publications">
+            <td>
+              <strong>{{ p.title }}</strong><br>
+              <span style="font-size: 0.8rem; color: #52606b;">{{ p.authors }} ({{ p.year }})</span>
+            </td>
+            <td><span class="badge badge-info">{{ p.pub_type }}</span></td>
+            <td style="text-align: right;">
+              <a *ngIf="p.doi_url" [href]="p.doi_url" target="_blank" class="btn btn-outline btn-sm" style="margin-right: 5px;">Ver URL</a>
+              <button class="btn btn-danger btn-sm" (click)="deletePublication(p.id)">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

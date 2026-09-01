@@ -6,6 +6,10 @@ import { PublicLayoutComponent } from './features/public/public-layout/public-la
 import { HomeComponent } from './features/public/home/home.component';
 import { MembersPublicComponent } from './features/public/members-public/members-public.component';
 import { MembersAdminComponent } from './features/admin/members-admin/members-admin.component';
+import { PublicationsPublicComponent } from './features/public/publications-public/publications-public.component';
+import { PublicationsAdminComponent } from './features/admin/publications-admin/publications-admin.component';
+import { EventsPublicComponent } from './features/public/events-public/events-public.component';
+import { EventsAdminComponent } from './features/admin/events-admin/events-admin.component';
 import { authGuard } from './core/guards/auth.guard';
 // import { roleGuard } from './core/guards/role.guard';
 
@@ -18,7 +22,8 @@ export const routes: Routes = [
     children: [
       { path: '', component: HomeComponent },
       { path: 'miembros', component: MembersPublicComponent },
-      // Aquí puedes mapear producción y difusión luego
+      { path: 'produccion', component: PublicationsPublicComponent },
+      { path: 'difusion', component: EventsPublicComponent },
     ]
   },
 
@@ -33,6 +38,8 @@ export const routes: Routes = [
     children: [
       { path: '', component: DashboardComponent },
       { path: 'miembros', component: MembersAdminComponent },
+      { path: 'produccion', component: PublicationsAdminComponent },
+      { path: 'difusion', component: EventsAdminComponent },
     ]
   },
   

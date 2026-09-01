@@ -1,0 +1,84 @@
+<div style="margin-bottom: 2rem;">
+  <h2 style="margin: 0; font-size: 1.5rem; color: #0b1720;">Gestión de Difusión y Eventos</h2>
+  <p style="color: #52606b; margin-top: 0.5rem;">Administra congresos y actividades de divulgación.</p>
+</div>
+
+<div class="metrics-grid" style="grid-template-columns: 1fr 2fr;">
+  
+  <div class="panel" style="margin-bottom: 0;">
+    <div class="panel-header">
+      <h3 style="margin: 0;">Nuevo Registro</h3>
+    </div>
+    <form (ngSubmit)="onSubmit()">
+      
+      <div class="form-group">
+        <label>Título del Evento/Actividad *</label>
+        <input type="text" class="form-control" name="title" [(ngModel)]="newEvent.title" required placeholder="Título completo...">
+      </div>
+      
+      <div class="form-group">
+        <label>Categoría *</label>
+        <select class="form-control" name="event_type" [(ngModel)]="newEvent.event_type" required>
+          <option *ngFor="let type of eventTypes" [value]="type">{{ type }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Ponentes / Involucrados</label>
+        <input type="text" class="form-control" name="speakers" [(ngModel)]="newEvent.speakers" placeholder="Ej. Dr. Pérez, Dra. Gómez">
+      </div>
+      
+      <div class="form-group">
+        <label>Fecha</label>
+        <input type="date" class="form-control" name="event_date" [(ngModel)]="newEvent.event_date">
+      </div>
+
+      <div class="form-group">
+        <label>Enlace Externo (Video/Web)</label>
+        <input type="url" class="form-control" name="video_url" [(ngModel)]="newEvent.video_url" placeholder="https://youtube.com/...">
+      </div>
+      
+      <button type="submit" class="btn btn-primary btn-block" [disabled]="isSaving || !newEvent.title">
+        {{ isSaving ? 'Guardando...' : '+ Registrar Actividad' }}
+      </button>
+      
+    </form>
+  </div>
+  
+  <div class="panel" style="margin-bottom: 0;">
+    <div class="panel-header">
+      <h3 style="margin: 0;">Eventos Registrados</h3>
+    </div>
+    
+    <div *ngIf="isLoading" style="padding: 2rem; text-align: center;">Cargando registros...</div>
+    
+    <div class="table-responsive" *ngIf="!isLoading">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Detalles</th>
+            <th>Tipo</th>
+            <th style="text-align: right;">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="events.length === 0">
+            <td colspan="3" style="text-align: center; color: #52606b; padding: 2rem;">No hay eventos registrados.</td>
+          </tr>
+          <tr *ngFor="let ev of events">
+            <td>
+              <strong>{{ ev.title }}</strong><br>
+              <span style="font-size: 0.8rem; color: #52606b;">{{ ev.speakers }} ({{ ev.event_date | date }})</span>
+            </td>
+            <td><span class="badge badge-primary">{{ ev.event_type }}</span></td>
+            <td style="text-align: right;">
+              <a *ngIf="ev.video_url" [href]="ev.video_url" target="_blank" class="btn btn-outline btn-sm" style="margin-right: 5px;">Ver URL</a>
+              <button class="btn btn-danger btn-sm" (click)="deleteEvent(ev.id)">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

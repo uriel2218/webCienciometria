@@ -1,0 +1,62 @@
+<section class="hero-section" style="background: linear-gradient(rgba(11, 23, 32, 0.75), rgba(11, 23, 32, 0.75)), url('/img/cartelClase.jpeg') center center no-repeat; background-size: cover;">
+  <div class="hero-content">
+    <h1>Producción Científica</h1>
+    <p>Artículos, libros y reportes técnicos generados por nuestro equipo.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" *ngIf="isLoading" style="text-align: center; padding: 3rem;">
+    <h3>Cargando producción científica...</h3>
+  </div>
+  
+  <div class="container grid cols-2" *ngIf="!isLoading">
+    
+    <div class="card" *ngIf="articles.length > 0">
+      <h2>Artículos Recientes</h2>
+      <ol>
+        <li *ngFor="let p of articles">
+          {{ p.authors }}. <em>{{ p.title }}</em>. ({{ p.year }}). 
+          <a *ngIf="p.doi_url" [href]="p.doi_url" target="_blank" rel="noopener">[Enlace]</a>
+        </li>
+      </ol>
+    </div>
+
+    <div class="card" *ngIf="books.length > 0">
+      <h2>Libros</h2>
+      <ol>
+        <li *ngFor="let p of books">
+          {{ p.authors }}. <em>{{ p.title }}</em>. ({{ p.year }}). 
+          <a *ngIf="p.doi_url" [href]="p.doi_url" target="_blank" rel="noopener">[Enlace]</a>
+        </li>
+      </ol>
+    </div>
+    
+  </div>
+</section>
+
+<section class="section" *ngIf="!isLoading && (conferences.length > 0 || reports.length > 0)">
+  <div class="container grid cols-2">
+    
+    <div class="card" *ngIf="conferences.length > 0">
+      <h2>Conferencias</h2>
+      <ol>
+        <li *ngFor="let p of conferences">
+          {{ p.authors }}. <em>{{ p.title }}</em>. ({{ p.year }}). 
+          <a *ngIf="p.doi_url" [href]="p.doi_url" target="_blank" rel="noopener">[Enlace]</a>
+        </li>
+      </ol>
+    </div>
+
+    <div class="card" *ngIf="reports.length > 0">
+      <h2>Reportes Técnicos</h2>
+      <ol>
+        <li *ngFor="let p of reports">
+          {{ p.authors }}. <em>{{ p.title }}</em>. ({{ p.year }}). 
+          <a *ngIf="p.doi_url" [href]="p.doi_url" target="_blank" rel="noopener">[Enlace]</a>
+        </li>
+      </ol>
+    </div>
+
+  </div>
+</section>
