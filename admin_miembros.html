@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>C4 — [Gestión de Miembros]</title>
+  <link rel="icon" type="image/png" href="img/faviconC4.png">
+  <link rel="stylesheet" href="style/main.css">
+  
+  <style>
+    body { margin: 0; display: flex; height: 100vh; background-color: var(--bg); }
+    
+    /* Barra Lateral */
+    .sidebar { width: 260px; background-color: #1a365d; color: white; display: flex; flex-direction: column; flex-shrink: 0; }
+    .sidebar-header { padding: 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .sidebar-header img { max-width: 150px; margin-bottom: 10px; border-radius: 4px; background: #fff; padding: 5px; }
+    .sidebar-nav { flex: 1; padding: 20px 0; }
+    .sidebar-nav a { display: block; padding: 12px 25px; color: #e2e8f0; text-decoration: none; font-weight: 500; transition: background 0.2s; }
+    .sidebar-nav a:hover, .sidebar-nav a.active { background-color: rgba(255,255,255,0.1); color: white; border-left: 4px solid var(--accent); }
+    
+    /* Área Principal */
+    .main-content { flex: 1; padding: 40px; overflow-y: auto; }
+    
+    /* Estilos de Tabla */
+    .table-container { background: #fff; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-top: 1.5rem; }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th, td { padding: 12px 20px; border-bottom: 1px solid var(--border); font-size: 0.95rem; }
+    th { background-color: #f8fafc; font-weight: 600; color: var(--muted); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px; }
+    tbody tr:hover { background-color: #f1f5f9; }
+    
+    /* Botones y Formularios */
+    .btn-sm { padding: 4px 10px; font-size: 0.85rem; border-radius: 6px; cursor: pointer; border: none; font-weight: 600; }
+    .btn-edit { background-color: #e0f2fe; color: #0284c7; }
+    .btn-delete { background-color: #fee2e2; color: #ef4444; margin-left: 5px; }
+    .form-group { margin-bottom: 1.5rem; }
+    .form-group label { display: block; font-weight: 600; margin-bottom: 0.5rem; color: var(--text); font-size: 0.95rem; }
+    .form-control { width: 100%; padding: 10px 15px; border: 1px solid var(--border); border-radius: 8px; font-family: inherit; font-size: 0.95rem; background-color: #f8fafc; box-sizing: border-box; }
+    .form-control:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1); }
+    
+    /* Drag and Drop Zone */
+    .drop-zone {
+      border: 2px dashed var(--border); border-radius: 8px; padding: 30px; text-align: center;
+      background-color: #f8fafc; cursor: pointer; transition: background-color 0.3s, border-color 0.3s;
+    }
+    .drop-zone:hover, .drop-zone.dragover { background-color: #e0f2fe; border-color: #0284c7; }
+  </style>
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <img src="img/logoC4.jpg" alt="Logo C4">
+      <div style="font-size: 1.1rem; font-weight: bold; margin-top: 10px;">Panel de Control</div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#" class="active">Gestión de Miembros</a>
+      <a href="#">Producción Científica</a>
+      <a href="#">Difusión y Divulgación</a>
+      <a href="#">Gestionar Banner inicial</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <div style="max-width: 1000px; margin: 0 auto;">
+      
+      <!-- ========================================== -->
+      <!-- VISTA 1: LISTA (READ)                      -->
+      <!-- ========================================== -->
+      <div id="vista_lista">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h1 style="color: var(--primary); margin: 0;">Coordinadores y Miembros</h1>
+          <button class="btn primary" onclick="toggleVista('formulario')">+ Nuevo Miembro</button>
+        </div>
+        <p class="muted">Gestiona el alta, baja y modificación de los integrantes del proyecto.</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Rol</th>
+                <th>Entidad/Institución</th>
+                <th style="text-align: right;">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Dr. Humberto Carrillo Calvet</strong></td>
+                <td><span class="badge">Coordinador</span></td>
+                <td>Facultad de Ciencias, UNAM</td>
+                <td style="text-align: right;">
+                  <button class="btn-sm btn-edit" onclick="toggleVista('formulario', true)">Editar</button>
+                  <button class="btn-sm btn-delete">Borrar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- VISTA 2: FORMULARIO DINÁMICO (CREATE/UPDATE)-->
+      <!-- ========================================== -->
+      <div id="vista_formulario" style="display: none;">
+        <h1 id="titulo_formulario" style="color: var(--primary); margin-top: 0;">Agregar Miembro</h1>
+        
+        <div class="card" style="padding: 2.5rem; margin-top: 1.5rem;">
+          <form id="form_miembros">
+            
+            <div class="grid cols-3">
+              <div class="form-group"><label>Nombre(s)</label><input type="text" class="form-control"></div>
+              <div class="form-group"><label>Primer Apellido</label><input type="text" class="form-control"></div>
+              <div class="form-group"><label>Segundo Apellido (Opcional)</label><input type="text" class="form-control"></div>
+            </div>
+            
+            <div class="grid cols-2">
+              <div class="form-group">
+                <label>Rol en el proyecto</label>
+                <select class="form-control" id="select_rol" onchange="evaluarCampos()" required>
+                  <option value="">-- Selecciona el rol --</option>
+                  <option value="coordinador">Coordinador</option>
+                  <option value="colaborador">Colaborador</option>
+                  <option value="estudiante">Estudiante</option>
+                </select>
+              </div>
+
+              <!-- Tipo de estudiante (Se muestra solo si Rol = Estudiante) -->
+              <div class="form-group" id="div_tipo_estudiante" style="display: none;">
+                <label>Tipo de Estudiante</label>
+                <select class="form-control" id="select_tipo_estudiante" onchange="evaluarCampos()">
+                  <option value="">-- Selecciona el tipo --</option>
+                  <option value="postdoctorado">Postdoctorado</option>
+                  <option value="posgrado">Posgrado</option>
+                  <option value="servicio_social">Servicio Social</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- SELECCIÓN DE GRADO -->
+            <div class="grid cols-2" id="div_grado_container" style="display: none;">
+              <div class="form-group">
+                <label>Grado Académico</label>
+                <select class="form-control" id="select_grado" onchange="evaluarCampos()">
+                  <!-- Opciones inyectadas por JS -->
+                </select>
+              </div>
+
+              <!-- Grado Personalizado -->
+              <div class="form-group" id="div_grado_personalizado" style="display: none;">
+                <label>Abreviatura del grado personalizado (Ej. Mtro., Biol.)</label>
+                <input type="text" class="form-control" placeholder="Ingresa la abreviatura">
+              </div>
+            </div>
+            
+            <!-- Entidad y País (Para Colaboradores y Estudiantes) -->
+            <div class="grid cols-2" id="div_entidad_pais" style="display: none;">
+              <div class="form-group"><label>Entidad y/o Universidad</label><input type="text" class="form-control"></div>
+              <div class="form-group"><label>País</label><input type="text" class="form-control"></div>
+            </div>
+
+            <!-- Google Scholar (Solo Coordinadores) -->
+            <div class="form-group" id="div_scholar" style="display: none;">
+              <label>Enlace a Google Scholar</label>
+              <input type="url" class="form-control" placeholder="https://scholar.google.com/...">
+            </div>
+
+            <!-- Trayectoria (Solo Coordinadores) -->
+            <div class="form-group" id="div_trayectoria" style="display: none;">
+              <label>Resumen / Trayectoria</label>
+              <textarea class="form-control" rows="3"></textarea>
+            </div>
+
+            <!-- Fotografía Drag and Drop (Solo Coordinadores) -->
+            <div class="form-group" id="div_foto" style="display: none;">
+              <label>Fotografía del Coordinador</label>
+              <div class="drop-zone" id="drop_zone" onclick="document.getElementById('input_foto').click()">
+                <div style="font-weight: 600; color: var(--primary);">Arrastra la imagen aquí o haz clic para subir</div>
+                <div style="font-size: 0.85rem; color: var(--muted); margin-top: 5px;">Formatos admitidos: JPEG, JPG, PNG (Proporción cuadrada)</div>
+                <input type="file" id="input_foto" accept=".jpg, .jpeg, .png" style="display: none;">
+              </div>
+            </div>
+
+            <div style="text-align: right; margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 1.5rem;">
+              <button type="button" class="btn" style="margin-right: 10px;" onclick="toggleVista('lista')">Cancelar</button>
+              <button type="button" class="btn primary" onclick="toggleVista('lista')">Guardar Registro</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    function toggleVista(vista, esEdicion = false) {
+      if (vista === 'formulario') {
+        document.getElementById('vista_lista').style.display = 'none';
+        document.getElementById('vista_formulario').style.display = 'block';
+        document.getElementById('titulo_formulario').innerText = esEdicion ? 'Editar Miembro' : 'Agregar Nuevo Miembro';
+        if(!esEdicion) document.getElementById('form_miembros').reset();
+        evaluarCampos();
+      } else {
+        document.getElementById('vista_lista').style.display = 'block';
+        document.getElementById('vista_formulario').style.display = 'none';
+      }
+    }
+
+    function evaluarCampos() {
+      const rol = document.getElementById('select_rol').value;
+      const tipoEstudiante = document.getElementById('select_tipo_estudiante').value;
+      const selectGrado = document.getElementById('select_grado');
+      
+      // Guardar el grado seleccionado actual para no perderlo al reescribir las opciones
+      const gradoSeleccionado = selectGrado.value; 
+
+      // 1. Inyectar dinámicamente las opciones de grados según la selección
+      selectGrado.innerHTML = '<option value="">-- Selecciona el grado --</option>';
+      
+      if (rol === 'estudiante' && tipoEstudiante === 'postdoctorado') {
+        // Opciones exclusivas para postdoctorado (No binario / personalizado)
+        selectGrado.innerHTML += `
+          <option value="doctor">Doctor</option>
+          <option value="doctora">Doctora</option>
+          <option value="otro">Otro (Personalizado)</option>
+        `;
+      } else {
+        // Opciones estándar explícitas
+        selectGrado.innerHTML += `
+          <option value="licenciada">Licenciada</option>
+          <option value="licenciado">Licenciado</option>
+          <option value="ingeniera">Ingeniera</option>
+          <option value="ingeniero">Ingeniero</option>
+          <option value="maestra">Maestra</option>
+          <option value="maestro">Maestro</option>
+          <option value="doctora">Doctora</option>
+          <option value="doctor">Doctor</option>
+          <option value="otro">Otro (Personalizado)</option>
+        `;
+      }
+
+      // Restaurar la selección si sigue existiendo en las nuevas opciones
+      if(Array.from(selectGrado.options).some(opt => opt.value === gradoSeleccionado)) {
+        selectGrado.value = gradoSeleccionado;
+      }
+
+      // 2. Resetear visualización de todos los contenedores
+      document.getElementById('div_tipo_estudiante').style.display = 'none';
+      document.getElementById('div_grado_container').style.display = 'none';
+      document.getElementById('div_grado_personalizado').style.display = 'none';
+      document.getElementById('div_trayectoria').style.display = 'none';
+      document.getElementById('div_foto').style.display = 'none';
+      document.getElementById('div_entidad_pais').style.display = 'none';
+      document.getElementById('div_scholar').style.display = 'none';
+
+      // 3. Mostrar campos según lógica
+      if (selectGrado.value === 'otro') {
+        document.getElementById('div_grado_personalizado').style.display = 'block';
+      }
+
+      if (rol !== "") {
+        // Desaparecer Grado si es Servicio Social
+        if (!(rol === 'estudiante' && tipoEstudiante === 'servicio_social')) {
+          document.getElementById('div_grado_container').style.display = 'grid';
+        }
+      }
+
+      if (rol === 'coordinador') {
+        document.getElementById('div_trayectoria').style.display = 'block';
+        document.getElementById('div_foto').style.display = 'block';
+        document.getElementById('div_scholar').style.display = 'block';
+      } else if (rol === 'colaborador') {
+        document.getElementById('div_entidad_pais').style.display = 'grid';
+        // Google scholar ya no se muestra aquí
+      } else if (rol === 'estudiante') {
+        document.getElementById('div_tipo_estudiante').style.display = 'block';
+        document.getElementById('div_entidad_pais').style.display = 'grid';
+      }
+    }
+
+    // Eventos Drag & Drop
+    const dropZone = document.getElementById('drop_zone');
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, preventDefaults, false);
+    });
+    function preventDefaults(e) { e.preventDefault(); e.stopPropagation(); }
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
+    });
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'), false);
+    });
+    dropZone.addEventListener('drop', (e) => {
+      const input = document.getElementById('input_foto');
+      input.files = e.dataTransfer.files;
+    }, false);
+  </script>
+</body>
+</html>
