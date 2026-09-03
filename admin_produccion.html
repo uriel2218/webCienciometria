@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>C4 — [Gestión de Producción Científica]</title>
+  <link rel="icon" type="image/png" href="img/faviconC4.png">
+  <link rel="stylesheet" href="style/main.css">
+  
+  <style>
+    body { margin: 0; display: flex; height: 100vh; background-color: var(--bg); }
+    .sidebar { width: 260px; background-color: #1a365d; color: white; display: flex; flex-direction: column; flex-shrink: 0; }
+    .sidebar-header { padding: 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .sidebar-header img { max-width: 150px; margin-bottom: 10px; border-radius: 4px; background: #fff; padding: 5px; }
+    .sidebar-nav { flex: 1; padding: 20px 0; }
+    .sidebar-nav a { display: block; padding: 12px 25px; color: #e2e8f0; text-decoration: none; font-weight: 500; transition: background 0.2s; }
+    .sidebar-nav a:hover, .sidebar-nav a.active { background-color: rgba(255,255,255,0.1); color: white; border-left: 4px solid var(--accent); }
+    
+    .main-content { flex: 1; padding: 40px; overflow-y: auto; }
+    .table-container { background: #fff; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-top: 1.5rem; }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th, td { padding: 12px 20px; border-bottom: 1px solid var(--border); font-size: 0.95rem; }
+    th { background-color: #f8fafc; font-weight: 600; color: var(--muted); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px; }
+    tbody tr:hover { background-color: #f1f5f9; }
+    
+    .btn-sm { padding: 4px 10px; font-size: 0.85rem; border-radius: 6px; cursor: pointer; border: none; font-weight: 600; }
+    .btn-edit { background-color: #e0f2fe; color: #0284c7; }
+    .btn-delete { background-color: #fee2e2; color: #ef4444; margin-left: 5px; }
+    
+    .form-group { margin-bottom: 1.5rem; }
+    .form-group label { display: block; font-weight: 600; margin-bottom: 0.5rem; color: var(--text); font-size: 0.95rem; }
+    .form-control { width: 100%; padding: 10px 15px; border: 1px solid var(--border); border-radius: 8px; font-family: inherit; font-size: 0.95rem; background-color: #f8fafc; box-sizing: border-box; }
+    .form-control:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1); }
+    
+    /* Estilo para la previsualización APA */
+    .apa-preview { background-color: #e2e8f0; padding: 15px; border-radius: 8px; border-left: 4px solid var(--primary); font-family: serif; font-size: 1.1rem; line-height: 1.6; min-height: 60px; }
+  </style>
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <img src="img/logoC4.jpg" alt="Logo C4">
+      <div style="font-size: 1.1rem; font-weight: bold; margin-top: 10px;">Panel de Control</div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="admin_miembros.html">Gestión de Miembros</a>
+      <a href="admin_produccion.html" class="active">Producción Científica</a>
+      <a href="admin_difusion.html">Difusión y Divulgación</a>
+      <a href="admin_banner.html">Gestionar Banner inicial</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <div style="max-width: 1000px; margin: 0 auto;">
+      
+      <!-- VISTA 1: LISTA (READ) -->
+      <div id="vista_lista">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h1 style="color: var(--primary); margin: 0;">Producción Científica</h1>
+          <button class="btn primary" onclick="toggleVista('formulario')">+ Nuevo Registro</button>
+        </div>
+        <p class="muted">Añade o modifica los artículos, libros, capítulos y reportes del proyecto.</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Categoría</th>
+                <th>Referencia (APA)</th>
+                <th>Enlaces</th>
+                <th style="text-align: right;">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="badge" style="background: #e0f2fe; color: #0284c7;">Artículo de investigación</span></td>
+                <td style="max-width: 400px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Ruiz‐Sánchez, R., Arencibia‐Jorge, R... (2025). <em>Sixty Years of Research on Polaritons</em>...</td>
+                <td><a href="#" target="_blank" style="font-size: 0.85rem;">DOI</a></td>
+                <td style="text-align: right;">
+                  <button class="btn-sm btn-edit" onclick="toggleVista('formulario', true)">Editar</button>
+                  <button class="btn-sm btn-delete">Borrar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- VISTA 2: FORMULARIO GENERADOR APA (CREATE/UPDATE) -->
+      <div id="vista_formulario" style="display: none;">
+        <h1 id="titulo_formulario" style="color: var(--primary); margin-top: 0;">Agregar Producción</h1>
+        
+        <div class="card" style="padding: 2.5rem; margin-top: 1.5rem;">
+          <!-- PREVISUALIZACIÓN EN TIEMPO REAL -->
+          <div class="form-group" style="margin-bottom: 2rem;">
+            <label style="color: var(--primary);">Previsualización de la cita (Generada automáticamente)</label>
+            <div class="apa-preview" id="preview_apa">La cita aparecerá aquí conforme llenes los campos...</div>
+            <!-- Input oculto para enviar la cita formateada al backend -->
+            <input type="hidden" id="input_cita_generada" name="cita_apa">
+          </div>
+
+          <form id="form_produccion" oninput="generarAPA()">
+            
+            <div class="grid cols-2">
+              <div class="form-group">
+                <label>Categoría de la Producción</label>
+                <select class="form-control" id="select_categoria" onchange="evaluarCamposProduccion(); generarAPA();" required>
+                  <option value="">-- Selecciona una categoría --</option>
+                  <option value="articulo">Artículo de investigación</option>
+                  <option value="libro">Libro editado</option>
+                  <option value="capitulo">Capítulo de libro</option>
+                  <option value="acta">Artículo en acta de congreso</option>
+                  <option value="reporte">Reporte técnico</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Año de publicación</label>
+                <input type="number" id="f_anio" class="form-control" placeholder="Ej. 2024">
+              </div>
+            </div>
+
+            <!-- CAMPOS COMUNES -->
+            <div class="form-group">
+              <label>Autores (Separados por coma. Ej: Arencibia-Jorge, R., Carrillo-Calvet, H.)</label>
+              <input type="text" id="f_autores" class="form-control">
+            </div>
+
+            <div class="form-group">
+              <label id="label_titulo">Título de la publicación</label>
+              <input type="text" id="f_titulo" class="form-control">
+            </div>
+
+            <!-- CAMPOS DINÁMICOS -->
+            <div class="grid cols-2" id="div_contenedor_fuente" style="display: none;">
+              <div class="form-group">
+                <label id="label_fuente">Nombre de la Revista / Título del Libro</label>
+                <input type="text" id="f_fuente" class="form-control">
+              </div>
+              <div class="form-group" id="div_editores" style="display: none;">
+                <label>Editores (Ej: J. Pérez & M. Gómez)</label>
+                <input type="text" id="f_editores" class="form-control">
+              </div>
+              <div class="form-group" id="div_editorial" style="display: none;">
+                <label>Editorial / Institución</label>
+                <input type="text" id="f_editorial" class="form-control">
+              </div>
+            </div>
+
+            <div class="grid cols-3" id="div_detalles_numericos" style="display: none;">
+              <div class="form-group" id="div_volumen">
+                <label>Volumen</label>
+                <input type="text" id="f_volumen" class="form-control">
+              </div>
+              <div class="form-group" id="div_numero">
+                <label>Número</label>
+                <input type="text" id="f_numero" class="form-control">
+              </div>
+              <div class="form-group" id="div_paginas">
+                <label>Páginas (Ej. 15-30)</label>
+                <input type="text" id="f_paginas" class="form-control">
+              </div>
+            </div>
+
+            <!-- ENLACES -->
+            <div class="grid cols-2">
+              <div class="form-group">
+                <label>Enlace URL (Opcional)</label>
+                <input type="url" id="f_url" class="form-control" placeholder="https://...">
+              </div>
+              <div class="form-group" id="div_doi" style="display: none;">
+                <label>Enlace DOI</label>
+                <input type="url" id="f_doi" class="form-control" placeholder="https://doi.org/10...">
+              </div>
+            </div>
+
+            <div style="text-align: right; margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 1.5rem;">
+              <button type="button" class="btn" style="margin-right: 10px;" onclick="toggleVista('lista')">Cancelar</button>
+              <button type="button" class="btn primary" onclick="toggleVista('lista')">Guardar Registro</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    function toggleVista(vista, esEdicion = false) {
+      if (vista === 'formulario') {
+        document.getElementById('vista_lista').style.display = 'none';
+        document.getElementById('vista_formulario').style.display = 'block';
+        document.getElementById('titulo_formulario').innerText = esEdicion ? 'Editar Producción' : 'Agregar Producción';
+        if(!esEdicion) {
+          document.getElementById('form_produccion').reset();
+          document.getElementById('preview_apa').innerHTML = 'La cita aparecerá aquí conforme llenes los campos...';
+        }
+        evaluarCamposProduccion();
+      } else {
+        document.getElementById('vista_lista').style.display = 'block';
+        document.getElementById('vista_formulario').style.display = 'none';
+      }
+    }
+
+    function evaluarCamposProduccion() {
+      const cat = document.getElementById('select_categoria').value;
+      
+      // Resetear visibilidad
+      document.getElementById('div_contenedor_fuente').style.display = 'none';
+      document.getElementById('div_detalles_numericos').style.display = 'none';
+      document.getElementById('div_editores').style.display = 'none';
+      document.getElementById('div_editorial').style.display = 'none';
+      document.getElementById('div_volumen').style.display = 'none';
+      document.getElementById('div_numero').style.display = 'none';
+      document.getElementById('div_paginas').style.display = 'none';
+      document.getElementById('div_doi').style.display = 'none';
+      
+      // Modificar labels según contexto
+      const lblTitulo = document.getElementById('label_titulo');
+      const lblFuente = document.getElementById('label_fuente');
+
+      if (cat === 'articulo') {
+        lblTitulo.innerText = 'Título del artículo';
+        lblFuente.innerText = 'Nombre de la Revista';
+        document.getElementById('div_contenedor_fuente').style.display = 'grid';
+        document.getElementById('div_detalles_numericos').style.display = 'grid';
+        document.getElementById('div_volumen').style.display = 'block';
+        document.getElementById('div_numero').style.display = 'block';
+        document.getElementById('div_paginas').style.display = 'block';
+        document.getElementById('div_doi').style.display = 'block';
+      } 
+      else if (cat === 'libro') {
+        lblTitulo.innerText = 'Título del libro';
+        document.getElementById('div_contenedor_fuente').style.display = 'grid';
+        document.getElementById('div_editorial').style.display = 'block';
+      } 
+      else if (cat === 'capitulo' || cat === 'acta') {
+        lblTitulo.innerText = cat === 'capitulo' ? 'Título del capítulo' : 'Título de la ponencia/artículo';
+        lblFuente.innerText = cat === 'capitulo' ? 'Título del Libro' : 'Título de las Actas del Congreso';
+        document.getElementById('div_contenedor_fuente').style.display = 'grid';
+        document.getElementById('div_editorial').style.display = 'block';
+        document.getElementById('div_detalles_numericos').style.display = 'grid';
+        document.getElementById('div_paginas').style.display = 'block';
+        if (cat === 'capitulo') document.getElementById('div_editores').style.display = 'block';
+      } 
+      else if (cat === 'reporte') {
+        lblTitulo.innerText = 'Título del reporte';
+        document.getElementById('div_contenedor_fuente').style.display = 'grid';
+        lblFuente.innerText = 'Institución emisora';
+      }
+    }
+
+    function generarAPA() {
+      const cat = document.getElementById('select_categoria').value;
+      if (!cat) return;
+
+      // Obtener valores
+      const autores = document.getElementById('f_autores').value.trim();
+      const anio = document.getElementById('f_anio').value.trim();
+      const titulo = document.getElementById('f_titulo').value.trim();
+      const fuente = document.getElementById('f_fuente').value.trim();
+      const editores = document.getElementById('f_editores').value.trim();
+      const editorial = document.getElementById('f_editorial').value.trim();
+      const volumen = document.getElementById('f_volumen').value.trim();
+      const numero = document.getElementById('f_numero').value.trim();
+      const paginas = document.getElementById('f_paginas').value.trim();
+      
+      let cita = '';
+
+      // Autores y Año (Común para todos)
+      if (autores) cita += `${autores}. `;
+      if (anio) cita += `(${anio}). `;
+
+      // Lógica de construcción por categoría
+      if (cat === 'articulo') {
+        if (titulo) cita += `${titulo}. `;
+        if (fuente) cita += `<em>${fuente}</em>`;
+        if (volumen) cita += `, <em>${volumen}</em>`;
+        if (numero) cita += `(${numero})`;
+        if (paginas) cita += `, ${paginas}.`;
+      } 
+      else if (cat === 'libro') {
+        if (titulo) cita += `<em>${titulo}</em>. `;
+        if (editorial) cita += `${editorial}.`;
+      } 
+      else if (cat === 'capitulo') {
+        if (titulo) cita += `${titulo}. `;
+        if (editores || fuente) {
+          cita += `En `;
+          if (editores) cita += `${editores} (Eds.), `;
+          if (fuente) cita += `<em>${fuente}</em> `;
+          if (paginas) cita += `(pp. ${paginas}). `;
+        }
+        if (editorial) cita += `${editorial}.`;
+      } 
+      else if (cat === 'acta') {
+        if (titulo) cita += `${titulo}. `;
+        if (fuente) cita += `En <em>${fuente}</em> `;
+        if (paginas) cita += `(pp. ${paginas}). `;
+        if (editorial) cita += `${editorial}.`;
+      } 
+      else if (cat === 'reporte') {
+        if (titulo) cita += `<em>${titulo}</em>. `;
+        if (fuente) cita += `${fuente}.`; // Usamos el campo fuente como Institución
+      }
+
+      // Evitar que queden comas o puntos sueltos al final si faltan datos
+      cita = cita.replace(/\.\./g, '.').trim();
+
+      // Renderizar en la previsualización y guardar en el input oculto
+      document.getElementById('preview_apa').innerHTML = cita || 'La cita aparecerá aquí conforme llenes los campos...';
+      document.getElementById('input_cita_generada').value = cita;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>C4 — [Gestión de Difusión y Divulgación]</title>
+  <link rel="icon" type="image/png" href="img/faviconC4.png">
+  <link rel="stylesheet" href="style/main.css">
+  
+  <style>
+    body { margin: 0; display: flex; height: 100vh; background-color: var(--bg); }
+    .sidebar { width: 260px; background-color: #1a365d; color: white; display: flex; flex-direction: column; flex-shrink: 0; }
+    .sidebar-header { padding: 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .sidebar-header img { max-width: 150px; margin-bottom: 10px; border-radius: 4px; background: #fff; padding: 5px; }
+    .sidebar-nav { flex: 1; padding: 20px 0; }
+    .sidebar-nav a { display: block; padding: 12px 25px; color: #e2e8f0; text-decoration: none; font-weight: 500; transition: background 0.2s; }
+    .sidebar-nav a:hover, .sidebar-nav a.active { background-color: rgba(255,255,255,0.1); color: white; border-left: 4px solid var(--accent); }
+    
+    .main-content { flex: 1; padding: 40px; overflow-y: auto; }
+    .table-container { background: #fff; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; margin-top: 1.5rem; }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th, td { padding: 12px 20px; border-bottom: 1px solid var(--border); font-size: 0.95rem; }
+    th { background-color: #f8fafc; font-weight: 600; color: var(--muted); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px; }
+    tbody tr:hover { background-color: #f1f5f9; }
+    
+    .btn-sm { padding: 4px 10px; font-size: 0.85rem; border-radius: 6px; cursor: pointer; border: none; font-weight: 600; }
+    .btn-edit { background-color: #e0f2fe; color: #0284c7; }
+    .btn-delete { background-color: #fee2e2; color: #ef4444; margin-left: 5px; }
+    
+    .form-group { margin-bottom: 1.5rem; }
+    .form-group label { display: block; font-weight: 600; margin-bottom: 0.5rem; color: var(--text); font-size: 0.95rem; }
+    .form-control { width: 100%; padding: 10px 15px; border: 1px solid var(--border); border-radius: 8px; font-family: inherit; font-size: 0.95rem; background-color: #f8fafc; box-sizing: border-box; }
+    .form-control:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.1); }
+    
+    .apa-preview { background-color: #e2e8f0; padding: 15px; border-radius: 8px; border-left: 4px solid var(--primary); font-family: serif; font-size: 1.1rem; line-height: 1.6; min-height: 60px; }
+  </style>
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <img src="img/logoC4.jpg" alt="Logo C4">
+      <div style="font-size: 1.1rem; font-weight: bold; margin-top: 10px;">Panel de Control</div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="admin_miembros.html">Gestión de Miembros</a>
+      <a href="admin_produccion.html">Producción Científica</a>
+      <a href="admin_difusion.html" class="active">Difusión y Divulgación</a>
+      <a href="admin_banner.html">Gestionar Banner inicial</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <div style="max-width: 1000px; margin: 0 auto;">
+      
+      <!-- VISTA 1: LISTA (READ) -->
+      <div id="vista_lista">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h1 style="color: var(--primary); margin: 0;">Difusión y Divulgación</h1>
+          <button class="btn primary" onclick="toggleVista('formulario')">+ Nuevo Registro</button>
+        </div>
+        <p class="muted">Añade o modifica ponencias, presentaciones en eventos y entrevistas.</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Categoría</th>
+                <th>Referencia Generada</th>
+                <th>Enlace</th>
+                <th style="text-align: right;">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="badge" style="background: #dcfce7; color: #16a34a;">Presentación</span></td>
+                <td style="max-width: 400px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Humberto Carrillo Calvet (Conferencia Magistral). <em>Complejidad, Cienciometría...</em></td>
+                <td><a href="#" target="_blank" style="font-size: 0.85rem;">Video</a></td>
+                <td style="text-align: right;">
+                  <button class="btn-sm btn-edit" onclick="toggleVista('formulario', true)">Editar</button>
+                  <button class="btn-sm btn-delete">Borrar</button>
+                </td>
+              </tr>
+              <tr>
+                <td><span class="badge" style="background: #ffedd5; color: #ea580c;">Divulgación</span></td>
+                <td style="max-width: 400px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Entrevista. Joaquín Cruz: <em>La industria de publicaciones científicas...</em></td>
+                <td><a href="#" target="_blank" style="font-size: 0.85rem;">Web</a></td>
+                <td style="text-align: right;">
+                  <button class="btn-sm btn-edit" onclick="toggleVista('formulario', true)">Editar</button>
+                  <button class="btn-sm btn-delete">Borrar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- VISTA 2: FORMULARIO GENERADOR (CREATE/UPDATE) -->
+      <div id="vista_formulario" style="display: none;">
+        <h1 id="titulo_formulario" style="color: var(--primary); margin-top: 0;">Agregar Difusión</h1>
+        
+        <div class="card" style="padding: 2.5rem; margin-top: 1.5rem;">
+          <!-- PREVISUALIZACIÓN EN TIEMPO REAL -->
+          <div class="form-group" style="margin-bottom: 2rem;">
+            <label style="color: var(--primary);">Previsualización de la referencia</label>
+            <div class="apa-preview" id="preview_apa">La referencia aparecerá aquí conforme llenes los campos...</div>
+            <input type="hidden" id="input_cita_generada" name="cita_apa">
+          </div>
+
+          <form id="form_difusion" oninput="generarReferencia()">
+            
+            <div class="grid cols-2">
+              <div class="form-group">
+                <label>Categoría</label>
+                <select class="form-control" id="select_categoria" onchange="evaluarCamposDifusion(); generarReferencia();" required>
+                  <option value="">-- Selecciona una categoría --</option>
+                  <option value="presentacion">Presentación en evento / Congreso</option>
+                  <option value="divulgacion">Acción de divulgación (Entrevista, Nota, Panel)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Fecha (Mes y Año, ej. 4 oct 2024)</label>
+                <input type="text" id="f_fecha" class="form-control" placeholder="Ej. 4 oct 2024">
+              </div>
+            </div>
+
+            <!-- TÍTULO COMÚN -->
+            <div class="form-group">
+              <label id="label_titulo">Título de la presentación / tema central</label>
+              <input type="text" id="f_titulo" class="form-control">
+            </div>
+
+            <!-- CAMPOS PARA PRESENTACIONES -->
+            <div id="seccion_presentacion" style="display: none;">
+              <div class="grid cols-2">
+                <div class="form-group">
+                  <label>Ponente(s) / Autor(es)</label>
+                  <input type="text" id="f_autores" class="form-control" placeholder="Ej. Humberto Carrillo Calvet">
+                </div>
+                <div class="form-group">
+                  <label>Tipo de participación (Opcional)</label>
+                  <input type="text" id="f_tipo_part" class="form-control" placeholder="Ej. Conferencia Magistral">
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Nombre del Evento o Institución sede</label>
+                <input type="text" id="f_evento" class="form-control" placeholder="Ej. XLII Coloquio IIBI-UNAM">
+              </div>
+            </div>
+
+            <!-- CAMPOS PARA DIVULGACIÓN -->
+            <div id="seccion_divulgacion" style="display: none;">
+              <div class="grid cols-2">
+                <div class="form-group">
+                  <label>Tipo de acción</label>
+                  <select class="form-control" id="f_tipo_accion">
+                    <option value="Entrevista">Entrevista</option>
+                    <option value="Panelista">Panelista</option>
+                    <option value="Nota">Nota periodística / Artículo</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Entrevistador / Autor de la nota (Opcional)</label>
+                  <input type="text" id="f_entrevistador" class="form-control" placeholder="Ej. Joaquín Cruz">
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Medio, Plataforma o Institución</label>
+                <input type="text" id="f_medio" class="form-control" placeholder="Ej. C3-UNAM, TV UNAM, SciDevNet">
+              </div>
+            </div>
+
+            <!-- ENLACE -->
+            <div class="grid cols-2">
+              <div class="form-group">
+                <label>Enlace URL (Opcional)</label>
+                <input type="url" id="f_url" class="form-control" placeholder="https://...">
+              </div>
+              <div class="form-group">
+                <label>Etiqueta del enlace</label>
+                <select class="form-control" id="f_etiqueta_url">
+                  <option value="Video">Video</option>
+                  <option value="Web">Página Web / Nota</option>
+                  <option value="Audio">Audio / Podcast</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="text-align: right; margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 1.5rem;">
+              <button type="button" class="btn" style="margin-right: 10px;" onclick="toggleVista('lista')">Cancelar</button>
+              <button type="button" class="btn primary" onclick="toggleVista('lista')">Guardar Registro</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    function toggleVista(vista, esEdicion = false) {
+      if (vista === 'formulario') {
+        document.getElementById('vista_lista').style.display = 'none';
+        document.getElementById('vista_formulario').style.display = 'block';
+        document.getElementById('titulo_formulario').innerText = esEdicion ? 'Editar Registro' : 'Agregar Registro';
+        if(!esEdicion) {
+          document.getElementById('form_difusion').reset();
+          document.getElementById('preview_apa').innerHTML = 'La referencia aparecerá aquí conforme llenes los campos...';
+        }
+        evaluarCamposDifusion();
+      } else {
+        document.getElementById('vista_lista').style.display = 'block';
+        document.getElementById('vista_formulario').style.display = 'none';
+      }
+    }
+
+    function evaluarCamposDifusion() {
+      const cat = document.getElementById('select_categoria').value;
+      
+      document.getElementById('seccion_presentacion').style.display = 'none';
+      document.getElementById('seccion_divulgacion').style.display = 'none';
+
+      if (cat === 'presentacion') {
+        document.getElementById('seccion_presentacion').style.display = 'block';
+      } else if (cat === 'divulgacion') {
+        document.getElementById('seccion_divulgacion').style.display = 'block';
+      }
+    }
+
+    function generarReferencia() {
+      const cat = document.getElementById('select_categoria').value;
+      if (!cat) return;
+
+      const fecha = document.getElementById('f_fecha').value.trim();
+      const titulo = document.getElementById('f_titulo').value.trim();
+      
+      let ref = '';
+
+      if (cat === 'presentacion') {
+        const autores = document.getElementById('f_autores').value.trim();
+        const tipoPart = document.getElementById('f_tipo_part').value.trim();
+        const evento = document.getElementById('f_evento').value.trim();
+
+        if (autores) ref += `${autores} `;
+        if (tipoPart) ref += `(${tipoPart}). `;
+        else if (autores) ref += `. `;
+        
+        if (titulo) ref += `<em>${titulo}.</em> `;
+        if (evento) ref += `${evento}, `;
+        if (fecha) ref += `${fecha}.`;
+      } 
+      else if (cat === 'divulgacion') {
+        const tipoAccion = document.getElementById('f_tipo_accion').value;
+        const entrevistador = document.getElementById('f_entrevistador').value.trim();
+        const medio = document.getElementById('f_medio').value.trim();
+
+        ref += `${tipoAccion}. `;
+        if (entrevistador) ref += `${entrevistador}: `;
+        if (titulo) ref += `<em>${titulo}</em>. `;
+        if (medio) ref += `${medio}, `;
+        if (fecha) ref += `${fecha}.`;
+      }
+
+      ref = ref.replace(/\.\./g, '.').replace(/, \./g, '.').trim();
+
+      document.getElementById('preview_apa').innerHTML = ref || 'La referencia aparecerá aquí conforme llenes los campos...';
+      document.getElementById('input_cita_generada').value = ref;
+    }
+  </script>
+</body>
+</html>
